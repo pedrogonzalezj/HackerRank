@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class TheCoinChangeProblem {
 
-    private static Map<CacheKey,Long> WAYS_CACHE = new HashMap<>();
+    private static Map<CoinChangeCacheKey,Long> WAYS_CACHE = new HashMap<>();
 
     private static long getWays(long amount, Long[] c) {
 
@@ -33,7 +33,7 @@ public class TheCoinChangeProblem {
             for (int i = 0; i <= amount / coin; i++) {
 
                 final long newAmount = amount - i * coin;
-                final CacheKey key = CacheKey.of(newAmount,restOfCoins);
+                final CoinChangeCacheKey key = CoinChangeCacheKey.of(newAmount,restOfCoins);
                 final long toAdd = WAYS_CACHE.computeIfAbsent(key,k-> getWays(newAmount, restOfCoins));
                 ways = ways + toAdd;
             }
@@ -57,21 +57,21 @@ public class TheCoinChangeProblem {
     }
 }
 
-class CacheKey {
+class CoinChangeCacheKey {
 
     private long amount;
 
     private Long[] coins;
 
-    private CacheKey(long amount, Long[] coins) {
+    private CoinChangeCacheKey(long amount, Long[] coins) {
 
         this.amount = amount;
         this.coins = coins;
     }
 
-    static CacheKey of(long amount, Long[] coins) {
+    static CoinChangeCacheKey of(long amount, Long[] coins) {
 
-        return new CacheKey(amount,coins);
+        return new CoinChangeCacheKey(amount,coins);
     }
 
     @Override
@@ -83,10 +83,10 @@ class CacheKey {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof CacheKey)) {
+        if (!(obj instanceof CoinChangeCacheKey)) {
             return false;
         }
-        CacheKey other = (CacheKey) obj;
+        CoinChangeCacheKey other = (CoinChangeCacheKey) obj;
         return amount == other.amount && Arrays.equals(coins,other.coins);
     }
 
