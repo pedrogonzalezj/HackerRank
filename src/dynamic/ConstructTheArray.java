@@ -3,7 +3,7 @@ package dynamic;
 
 import java.util.Scanner;
 
-public class ContructTheArray {
+public class ConstructTheArray {
 
     private static long countArray(int length, int max, int lastElement) {
 
